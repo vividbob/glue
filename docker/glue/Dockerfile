@@ -19,14 +19,17 @@ RUN ln -s /usr/bin/nodejs /usr/bin/node
 #################################################################################################
 #       User
 #
-RUN useradd -ms /bin/bash --groups sudo glue
-USER glue
+#RUN useradd -ms /bin/bash --groups sudo glue
+#USER glue
 
 #################################################################################################
 #       RVM / Ruby
 #
 #
 RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+RUN echo 'export rvm_prefix="$HOME"' >> /root/.rvmrc
+RUN echo 'export rvm_path="$HOME/.rvm"' >> /root/.rvmrc
 RUN /bin/bash -l -c "curl -L https://get.rvm.io | bash -s stable"
 RUN /bin/bash -l -c "source ~/.rvm/scripts/rvm"
 RUN /bin/bash -l -c "rvm requirements"
@@ -105,5 +108,4 @@ ADD . /home/glue/glue
 WORKDIR /home/glue/glue
 RUN /bin/bash -l -c "gem install bundler; bundle install -j20; rm owasp-glue*.gem; gem build glue.gemspec; gem install owasp-glue*.gem;"
 
-ENTRYPOINT ["glue"]
-CMD ["-h"]
+ENTRYPOINT ["bash"]
