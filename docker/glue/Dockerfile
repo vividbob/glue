@@ -71,6 +71,7 @@ WORKDIR /home/glue/tools/
 # OWASP DEPENDENCY CHECK (needs unzip and default-jre)
 RUN curl -L http://dl.bintray.com/jeremy-long/owasp/dependency-check-1.4.3-release.zip --output owasp-dep-check.zip
 RUN unzip owasp-dep-check.zip
+RUN /home/glue/tools/dependency-check/bin/dependency-check.sh --updateonly
 
 # Maven
 RUN sudo apt-get install -y maven
