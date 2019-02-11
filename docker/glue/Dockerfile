@@ -62,27 +62,30 @@ WORKDIR /home/glue/tools/
 #       Truffle Hog
 #
 # RUN /bin/bash -l -c "sudo pip install truffleHog"
-RUN git clone https://github.com/runako/truffleHog.git
+RUN git clone https://github.com/dxa4481/truffleHog.git
 WORKDIR /home/glue/tools/truffleHog
-RUN git checkout rg-local-scan
-
+RUN pip install -r requirements.txt
 WORKDIR /home/glue/tools/
 
 # OWASP DEPENDENCY CHECK (needs unzip and default-jre)
-RUN curl -L http://dl.bintray.com/jeremy-long/owasp/dependency-check-1.4.3-release.zip --output owasp-dep-check.zip
+#
+RUN curl -L http://dl.bintray.com/jeremy-long/owasp/dependency-check-4.0.2-release.zip --output owasp-dep-check.zip
 RUN unzip owasp-dep-check.zip
 RUN /home/glue/tools/dependency-check/bin/dependency-check.sh --updateonly
 
 # Maven
+#
 RUN sudo apt-get install -y maven
 
 # FINDBUGS (Experimental)
+#
 #RUN curl -L http://downloads.sourceforge.net/project/findbugs/findbugs/3.0.1/findbugs-3.0.1.zip --output findbugs.zip
 #RUN unzip findbugs.zip
 #RUN curl -L http://search.maven.org/remotecontent?filepath=com/h3xstream/findsecbugs/findsecbugs-plugin/1.4.4/findsecbugs-plugin-1.4.4.jar > findbugs-3.0.1/plugin/findsecbugs.jar
 #RUN git clone https://github.com/find-sec-bugs/find-sec-bugs.git
 
 # SBT plugin (for Scala)
+#
 RUN sudo apt-get update
 RUN echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
 RUN sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823
