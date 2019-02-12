@@ -7,13 +7,19 @@ module Glue::Util
   def runsystem(report, *splat)
     Open3.popen3(*splat) do |stdin, stdout, stderr, wait_thr|
 
+      out_reader = Thread.new { stdout.read }
       if $logfile and report
         while line = stderr.gets do
           $logfile.puts line
         end
+      else
+        err_reader = Thread.new { stderr.read }
       end
-
-      return stdout.read.chomp
+      output = out_reader.value.chomp
+      if report and output.match("usage:")
+        raise SyntaxError, "Invalid command syntax.\n\n#{output}"
+      end
+      return output
     end
   end
 

@@ -126,10 +126,6 @@ class Glue::OWASPDependencyCheck < Glue::BaseTask
     initial_dir = Dir.pwd
     Dir.chdir @trigger.path if @scala_project
     @result= runsystem(true, *run_args.flatten)
-    if @result.match('usage:')
-      Glue.notify "Invalid OWASP Dep Check syntax ... skipped."
-      raise ArgumentError
-    end
     Dir.chdir initial_dir if @scala_project
   end
 

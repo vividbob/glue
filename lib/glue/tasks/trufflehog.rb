@@ -7,7 +7,7 @@ class Glue::Trufflehog < Glue::BaseTask
   Glue::Tasks.add self
   include Glue::Util
 
-  ISSUE_SEVERITY = 4
+  ISSUE_SEVERITY = 3 
 
   def initialize(trigger, tracker)
     super(trigger, tracker)
@@ -48,10 +48,11 @@ class Glue::Trufflehog < Glue::BaseTask
   private
 
   def get_warnings
-    JSON::parse(@result).each do |title, string|
-      detail = "Apparent password or other secret: #{string}"
-      fingerprint = "Trufflehog|#{title}"
-      self.report "Possible password or other secret in source code.", detail, title, ISSUE_SEVERITY, fingerprint
+    (@result.lines.map(&:chomp)).each do |issue_json|
+      issue = JSON::parse(issue_json)
+      detail = "Found #{issue['reason']} in #{issue['path']} as present in commit hash #{issue['commitHash']} with commit description '#{issue['commit'].chomp}' on branch #{issue['branch']} from #{issue['date']}. Strings at issue: #{issue['stringsFound'].join(', ')}"
+      fingerprint = "Trufflehog|#{issue['reason']}"
+      self.report "Possible password or other secret in source code.", detail, issue['reason'], ISSUE_SEVERITY, fingerprint
     end
   end
 end
