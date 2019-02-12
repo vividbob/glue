@@ -63,8 +63,10 @@ WORKDIR /home/glue/tools/
 #       Truffle Hog
 #
 # RUN /bin/bash -l -c "sudo pip install truffleHog"
-RUN git clone https://github.com/dxa4481/truffleHog.git
+#RUN git clone https://github.com/dxa4481/truffleHog.git
+RUN git clone https://github.com/bobthesecurityguy/truffleHog.git
 WORKDIR /home/glue/tools/truffleHog
+RUN git checkout tempfix
 RUN sudo pip install -r requirements.txt
 WORKDIR /home/glue/tools/
 
