@@ -21,7 +21,7 @@ class Glue::Trufflehog < Glue::BaseTask
 
   def run
     Glue.notify "#{@name}"
-    @result = runsystem(true, '/usr/bin/env', 'python', @trufflehog_path, '--json', @trigger.path)
+    @result = runsystem(true, '/usr/bin/env', 'python', @trufflehog_path, '--json', '--repo_path', @trigger.path)
   end
 
   def analyze

@@ -19,8 +19,8 @@ RUN ln -s /usr/bin/nodejs /usr/bin/node
 #################################################################################################
 #       User
 #
-#RUN useradd -ms /bin/bash --groups sudo glue
-#USER glue
+RUN useradd -ms /bin/bash -u 10000 --groups sudo glue
+USER glue
 
 #################################################################################################
 #       RVM / Ruby

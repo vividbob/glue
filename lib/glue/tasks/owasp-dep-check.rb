@@ -107,7 +107,7 @@ class Glue::OWASPDependencyCheck < Glue::BaseTask
     if @scala_project
       run_args = [ @sbt_path, "dependencyCheck" ]
     else  
-      run_args = [ @dep_check_path, "--project", "Glue", "-f", "ALL" ]
+      run_args = [ @dep_check_path, "--project", "Glue", "-f", "XML" ]
     end
 
     if @tracker.options[:owasp_dep_check_log]
@@ -123,6 +123,10 @@ class Glue::OWASPDependencyCheck < Glue::BaseTask
     initial_dir = Dir.pwd
     Dir.chdir @trigger.path if @scala_project
     @result= runsystem(true, *run_args.flatten)
+    if @result.match('usage:')
+      Glue.notify "Invalid OWASP Dep Check syntax ... skipped."
+      raise ArgumentError
+    end
     Dir.chdir initial_dir if @scala_project
   end
 
