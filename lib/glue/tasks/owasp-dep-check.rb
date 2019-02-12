@@ -126,6 +126,7 @@ class Glue::OWASPDependencyCheck < Glue::BaseTask
     initial_dir = Dir.pwd
     Dir.chdir @trigger.path if @scala_project
     @result= runsystem(true, *run_args.flatten)
+    puts @result
     Dir.chdir initial_dir if @scala_project
   end
 
@@ -140,10 +141,10 @@ class Glue::OWASPDependencyCheck < Glue::BaseTask
     begin
       Glue.debug "Parsing report #{path}"
       get_warnings(path)
-    rescue Exception => e
-      Glue.notify "Problem running OWASP Dep Check ... skipped."
-      Glue.notify e.message
-      raise e
+#    rescue Exception => e
+#      Glue.notify "Problem running OWASP Dep Check ... skipped."
+#      Glue.notify e.message
+#      raise e
     end
   end
 
