@@ -71,6 +71,9 @@ class Glue::DepCheckListener
 
       summary = "#{@name} in #{@jar_name}"
 
+      # Convert CVSS scale to 1-3 score
+      @cvss = (@cvss.to_f * 0.3).ceil
+
       puts "Fingerprint: #{@fingerprint}"
       puts "Vuln: #{@name} CVSS: #{@cvss} Description #{description} Detail #{detail}"
       @task.report summary, description, detail, @cvss, @fingerprint
