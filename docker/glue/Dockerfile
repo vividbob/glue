@@ -65,7 +65,7 @@ WORKDIR /home/glue/tools/
 # RUN /bin/bash -l -c "sudo pip install truffleHog"
 RUN git clone https://github.com/dxa4481/truffleHog.git
 WORKDIR /home/glue/tools/truffleHog
-RUN pip install -r requirements.txt
+RUN sudo pip install -r requirements.txt
 WORKDIR /home/glue/tools/
 
 # OWASP DEPENDENCY CHECK (needs unzip and default-jre)
