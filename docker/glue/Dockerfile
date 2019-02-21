@@ -76,6 +76,10 @@ RUN curl -L http://dl.bintray.com/jeremy-long/owasp/dependency-check-4.0.2-relea
 RUN unzip owasp-dep-check.zip
 RUN /home/glue/tools/dependency-check/bin/dependency-check.sh --updateonly
 
+# Mono (For OWASP Dependency Check)
+#
+RUN sudo apt-get install -y mono-runtime mono-devel
+
 # Maven
 #
 RUN sudo apt-get install -y maven
