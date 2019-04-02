@@ -73,14 +73,12 @@ WORKDIR /home/glue/tools/
 # OWASP DEPENDENCY CHECK (needs unzip and default-jre)
 #
 # Releases published at: https://bintray.com/jeremy-long/owasp/dependency-check
-RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys F9514E84AE3708288374BBBE097586CFEA37F9A6
-#RUN curl -L https://dl.bintray.com/jeremy-long/owasp/dependency-check-5.0.0-M1-release.zip --output owasp-dep-check.zip
-#RUN curl -L https://dl.bintray.com/jeremy-long/owasp/dependency-check-5.0.0-M1-release.zip.asc --output owasp-dep-check.zip.asc
-RUN curl -L https://dl.bintray.com/jeremy-long/owasp/dependency-check-4.0.2-release.zip --output owasp-dep-check.zip
-RUN curl -L https://dl.bintray.com/jeremy-long/owasp/dependency-check-4.0.2-release.zip.asc --output owasp-dep-check.zip.asc
-RUN gpg --verify owasp-dep-check.zip.asc
-RUN unzip owasp-dep-check.zip
-#RUN /home/glue/tools/dependency-check/bin/dependency-check.sh --updateonly
+RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys F9514E84AE3708288374BBBE097586CFEA37F9A6 \
+ && curl -L https://dl.bintray.com/jeremy-long/owasp/dependency-check-4.0.2-release.zip --output owasp-dep-check.zip \
+ && curl -L https://dl.bintray.com/jeremy-long/owasp/dependency-check-4.0.2-release.zip.asc --output owasp-dep-check.zip.asc \
+ && gpg --verify owasp-dep-check.zip.asc \
+ && unzip owasp-dep-check.zip
+ && rm owasp-dep-check.zip owasp-dep-check.zip.asc
 
 # Mono (For OWASP Dependency Check)
 #
