@@ -84,6 +84,10 @@ RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys F9514E84AE3708288374BBBE097
 #
 RUN sudo apt-get install -y mono-runtime mono-devel
 
+# PostgreSQL JDBC Plugin (for external database)
+#
+RUN curl -L https://jdbc.postgresql.org/download/postgresql-42.2.5.jar -o /home/glue/tools/dependency-check/plugins/postgresql.jar --retry 3 --retry-delay 5
+
 # Maven
 #
 RUN sudo apt-get install -y maven
