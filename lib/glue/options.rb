@@ -271,7 +271,7 @@ module Glue::Options
         end
 
         opts.on "--owasp-db-password PASSWORD", "The password for the OWASP Dependency Check external database" do |db_password|
-          options[:owasp_dep_check_db_pass] = db_pass
+          options[:owasp_dep_check_db_pass] = db_password
         end
 
         opts.on "--sbt-path PATH", "The full path to sbt (optional)" do |path|

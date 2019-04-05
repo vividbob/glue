@@ -121,6 +121,6 @@ RUN /bin/bash -l -c "git clone https://github.com/OWASP/glue.git"
 ADD . /home/glue/glue
 
 WORKDIR /home/glue/glue
-RUN /bin/bash -l -c "gem install bundler -v '~> 1.2'; bundle install -j20; rm owasp-glue*.gem; gem build glue.gemspec; gem install owasp-glue*.gem;"
+RUN /bin/bash -l -c "gem uninstall bundler --version '>2.0'; gem install bundler -v '~> 1.2'; bundle install -j20; rm owasp-glue*.gem; gem build glue.gemspec; gem install owasp-glue*.gem;"
 
 ENTRYPOINT ["bash"]
